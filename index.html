@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Halleeooween</title>
+</head>
+<body>
+    <div id="app">
+        <countdown date="2019-10-31 1:21:00"></countdown>
+    </div>
+</body>
+<script>
+    // Todo : Dated in the past
+    // Todo : Dated in future
+    // Todo : Test unitaire
+    Vue.component('countdown', {
+        props: {
+            date: {
+                type: String
+            },
+        },
+        data: function () {
+            return {
+                now: new Date().getTime(),
+            }
+        },
+        mounted: function () {
+            setInterval(() => {
+                this.now = new Date().getTime();
+            }, 1000);
+        },
+        computed: {
+            remainingTime: function () {
+                return new Date(this.date).getTime() - this.now;
+            },
+
+            getDays: function () {
+                return Math.floor(this.remainingTime / (1000 * 60 * 60 * 24));
+            },
+
+            changeDays: function () {
+            },
+
+            getHours: function () {
+                return Math.floor((this.remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            },
+
+            changeHours: function () {
+            },
+
+            getMinutes: function () {
+                return Math.floor((this.remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            },
+
+            changeMinutes: function () {
+                let oldMinutes = Math.floor(((this.now - 1000) % (1000 * 60 * 60)) / (1000 * 60));
+                let newMinutes = Math.floor(((this.now) % (1000 * 60 * 60)) / (1000 * 60));
+                return oldMinutes !== newMinutes;
+            },
+
+            getSeconds: function () {
+                return Math.floor((this.remainingTime % (1000 * 60)) / 1000);
+            },
+
+            changeSeconds: function () {
+                let oldSeconds = Math.floor(((this.now - 1000) % (1000 * 60)) / 1000);
+                let newSeconds = Math.floor(((this.now) % (1000 * 60)) / 1000);
+                return oldSeconds !== newSeconds;
+            },
+        },
+        filters: {
+            keepTwoDigit: function (value) {
+                if (value < 10) {
+                    return '0' + value;
+                } else {
+                    return value;
+                }
+            }
+        },
+        template: `
+            <div class="countdown">
+                <div class="countdown__numbers">
+                    <span :class="(changeDays === true) ? 'countdown__ghost-number' : '' ">{{ getDays | keepTwoDigit }}&nbsp;</span>
+                    <span :class="(changeHours === true) ? 'countdown__ghost-number' : '' ">{{ getHours | keepTwoDigit }}&nbsp;</span>
+                    <span :class="(changeMinutes === true) ? 'countdown__ghost-number' : '' ">{{ getMinutes | keepTwoDigit }}&nbsp;</span>
+                    <span :class="(changeSeconds === true) ? 'countdown__ghost-number' : '' ">{{ getSeconds | keepTwoDigit }}</span>
+                </div>
+                <div class="countdown__main">{{ getDays | keepTwoDigit }} {{ getHours | keepTwoDigit }} {{ getMinutes | keepTwoDigit }} {{ getSeconds | keepTwoDigit }}</div>
+            </div>
+        `
+    });
+
+    var app = new Vue({
+        el: '#app'
+    });
+</script>
+</html>

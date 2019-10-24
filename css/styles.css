@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css?family=Butcherman&display=swap");
+body {
+  background-color: #000000; }
+
+.countdown {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; }
+  .countdown__main {
+    color: white;
+    font-size: 80px;
+    font-family: 'Butcherman', cursive; }
+  .countdown__numbers {
+    display: flex;
+    position: absolute;
+    text-align: center;
+    color: white;
+    font-size: 80px;
+    font-family: 'Butcherman', cursive;
+    filter: blur(2px); }
+  .countdown__ghost-number {
+    animation: up 1s infinite linear; }
+
+@keyframes up {
+  0% {
+    transform: translate(0, 0) skew(0); }
+  20% {
+    transform: translate(0, -40%) skew(-5deg); }
+  40% {
+    transform: translate(0, -80%) skew(8deg); }
+  60% {
+    transform: translate(0, -120%) skew(-7deg); }
+  80% {
+    transform: translate(0, -160%) skew(4deg); }
+  100% {
+    transform: translate(0, -200%) skew(0);
+    opacity: 0; } }
