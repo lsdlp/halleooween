@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Butcherman&display=swap");
 body {
-  background-color: #000000; }
+  margin: 0;
+  padding: 0;
+  background: url("../img/creepy-landscape.jpg") no-repeat center fixed;
+  -webkit-background-size: cover;
+  background-size: cover; }
 
 .countdown {
   height: 100vh;
